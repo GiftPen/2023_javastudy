@@ -23,7 +23,6 @@ public class Ex04_OutputStream {
 			 // 파일이 없으면 생성, 있으면 덮어쓰기 한다.
 			 // fos = new FileOutputStream(file);
 			 // 파일이 없으면 생성, 있으면 이어쓰기 한다.
-			 fos = new FileOutputStream(file,true);
 			 
 			 // 한 글자 쓰기(1byte 출력 = 아스키코드가 1byte)
 //			 fos.write(97);
@@ -42,6 +41,7 @@ public class Ex04_OutputStream {
 			 // byte[] arr = {'h','e','l','l','o','H','I','1','2'};
 			 // fos.write(arr);
 			 // 한글, 한자등 모든 글자 처리 가능
+			 fos = new FileOutputStream(file,true);
 			 String str = "Hellow\n대한민국\n123456";
 			 byte[] arr = str.getBytes();
 			 fos.write(arr);

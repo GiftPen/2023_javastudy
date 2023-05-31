@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class Ex02_File {
 	public static void main(String[] args) {
-		String pathname = "D:/KJH/exam01.txt";
+		String pathname = "D:/KJH/exam02.txt";
 		File file = new File(pathname);
 		try {
 			boolean res = file.createNewFile();
@@ -33,14 +33,14 @@ public class Ex02_File {
 			}
 				System.out.println("=====================");
 				// 파일삭제
-				pathname = "D:/KJH/exam01.txt";
-				File file3 = new File(pathname);
-				boolean res3 = file3.delete();
-				if (res3) {
-					System.out.println("파일삭제 성공");
-				} else {
-					System.out.println("파일삭제 실패");
-				}
+//				pathname = "D:/KJH/exam01.txt";
+//				File file3 = new File(pathname);
+//				boolean res3 = file3.delete();
+//				if (res3) {
+//					System.out.println("파일삭제 성공");
+//				} else {
+//					System.out.println("파일삭제 실패");
+//				}
 				
 				System.out.println("=====================");
 				// 디렉토리 삭제
