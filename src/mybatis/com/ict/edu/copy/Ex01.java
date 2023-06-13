@@ -1,4 +1,4 @@
-package mybatis.com.ict.edu;
+package mybatis.com.ict.edu.copy;
 
 import java.util.List;
 import java.util.Scanner;
