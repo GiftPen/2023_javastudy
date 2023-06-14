@@ -1,44 +1,66 @@
 package network.com.ict.edu3;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.Scanner;
 
-public class EchoClient {
-	public static void main(String[] args) {
-		Socket s = null;
-		OutputStream out = null;
-		InputStream in = null;
-		try {
-			s = new Socket("192.168.0.81",7777);
-			System.out.println("클라이언트 연결 성공");
-			
-			// 입출력 스트림
-			out = s.getOutputStream();
-			in = s.getInputStream();
-			
-			// 메세지 전송
-			String msg = "안녕하세요!! Hello!";
-			out.write(msg.getBytes());
-			out.flush();
-			
-			// 서버에서 전송된 데이터 수신
-			byte[] buff = new byte[100];
-			in.read(buff);
-			String receive_msg = new String(buff).trim();
-			
-			System.out.println("에코메세지 : " + receive_msg);
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}finally {
+public class EchoClient implements Runnable{
+	
+	Socket s = null;
+	OutputStream out = null;
+	BufferedOutputStream bos  = null;
+	
+	InputStream in = null;
+	BufferedInputStream bis = null;
+	Scanner scan = new Scanner(System.in);
+	
+	
+	public EchoClient() {
+		new Thread(this).start();
+	}
+	
+	@Override
+	public void run() {
+		while(true) {
 			try {
-				s.close();
-				in.close();
-				out.close();
-			} catch (Exception e2) {
-				// TODO: handle exception
+				System.out.print("데이터 입력 : ");
+				String msg = scan.next();
+				
+				s = new Socket("192.168.0.81",7778);
+				
+				// 출력
+				out = s.getOutputStream();
+				bos = new BufferedOutputStream(out);
+				bos.write(msg.getBytes());
+				bos.flush();
+				
+				in = s.getInputStream();
+				bis = new BufferedInputStream(in);
+				
+				byte[] b = new byte[1024];
+				bis.read(b);
+				
+				String str = new String(b).trim();
+				if(str.equals("exit")) break;
+				System.out.println("서버에서 받은 내용 : " + str);
+			} catch (Exception e) {
+			}finally {
+				try {
+					s.close();
+					bis.close();
+					in.close();
+					bos.close();
+					out.close();
+				} catch (Exception e2) {
+				}
 			}
 		}
 	}
+	public static void main(String[] args) {
+		new EchoClient();
+	}
+
 }
